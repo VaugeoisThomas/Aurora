@@ -1,10 +1,8 @@
-import './App.scss'
 import AppHeader from './components/AppHeader'
-
 
 export default function App() {
   return (
-    <main className='app'>
+    <main className="app">
       <AppHeader />
 
       <section className="dashboard" aria-labelledby='dashboard-title'>
