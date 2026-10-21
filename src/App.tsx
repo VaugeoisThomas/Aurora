@@ -1,12 +1,11 @@
-import './App.css'
+import './App.scss'
+import AppHeader from './components/AppHeader'
+
 
 export default function App() {
   return (
     <main className='app'>
-      <header className='app-header'>
-        <h1>Aurora</h1>
-        <p>Votre budget, en toute clarté.</p>
-      </header>
+      <AppHeader />
 
       <section className="dashboard" aria-labelledby='dashboard-title'>
         <h2 id="dashboard-title">Tableau de bord</h2>
