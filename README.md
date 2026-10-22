@@ -29,11 +29,13 @@ npm run format
 npm run format:check
 npm run build
 npm run preview
+npm run check
 ```
 
 `format` modifie les fichiers ; `format:check` vérifie leur formatage.
 `build` vérifie TypeScript et génère l’application dans `dist`.
 `preview` permet de consulter localement cette version.
+`check` vérifie le formatage, lance ESLint et compile le projet.
 
 ## Organisation
 
