@@ -1,13 +1,13 @@
 type EmptyStateProps = {
-    title: string
-    message: string
+  title: string
+  message: string
 }
 
 export default function EmptyState({ title, message }: EmptyStateProps) {
-    return (
-        <div className="empty-state">
-            <h3>{title}</h3>
-            <p>{message}</p>
-        </div>
-    )
+  return (
+    <div className="empty-state">
+      <h3>{title}</h3>
+      <p>{message}</p>
+    </div>
+  )
 }
