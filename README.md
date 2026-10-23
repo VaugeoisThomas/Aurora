@@ -69,3 +69,17 @@ adaptée au changement.
 
 GitHub Actions vérifie ESLint, Prettier, les tests unitaires et la compilation.
 Les tests monétaires couvrent les conversions, les saisies invalides et les limites de précision.
+
+### Configuration Supabase
+
+Le développement utilise le projet Supabase `aurora-dev`.
+
+```cmd
+copy .env.example .env.local
+```
+
+Renseigner dans `.env.local` l’URL du projet et sa clé publishable.
+Ne jamais utiliser de clé secret ou service_role dans le frontend.
+
+Redémarrer Vite après toute modification des variables d’environnement.
+Le fichier `.env.local` est ignoré par Git.
