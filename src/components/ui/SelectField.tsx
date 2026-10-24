@@ -1,5 +1,5 @@
-import { useId } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
+import FormField from './FormField'
 
 type SelectFieldProps = Omit<
   ComponentPropsWithoutRef<'select'>,
@@ -11,9 +11,9 @@ type SelectFieldProps = Omit<
 }
 
 /**
- * Affiche une sélection avec un label et des messages associés.
- * @param props - Label, options enfants, aide et erreur facultatives et propriétés natives.
- * @returns Un select accessible relié à ses descriptions.
+ * Affiche un select dans une enveloppe de champ accessible.
+ * @param props - Label, descriptions et propriétés HTML natives.
+ * @returns Le champ de sélection et ses messages associés.
  */
 export default function SelectField({
   label,
@@ -23,29 +23,13 @@ export default function SelectField({
   children,
   ...props
 }: Readonly<SelectFieldProps>) {
-  const generatedId = useId()
-  const selectId = id ?? generatedId
-  const hintId = `${selectId}-hint`
-  const errorId = `${selectId}-error`
-  const describedBy =
-    [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
-
   return (
-    <div className="form-field">
-      <label htmlFor={selectId}>{label}</label>
-
-      {hint && <p id={hintId}>{hint}</p>}
-
-      <select
-        {...props}
-        id={selectId}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy}
-      >
-        {children}
-      </select>
-
-      {error && <p id={errorId}>{error}</p>}
-    </div>
+    <FormField id={id} label={label} hint={hint} error={error}>
+      {(controlProps) => (
+        <select {...props} {...controlProps}>
+          {children}
+        </select>
+      )}
+    </FormField>
   )
 }
