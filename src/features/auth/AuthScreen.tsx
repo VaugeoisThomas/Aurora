@@ -2,22 +2,39 @@ import { useState } from 'react'
 import Button from '../../components/ui/Button'
 import SignInForm from './SignInForm'
 import SignUpForm from './SignUpForm'
+import ForgotPasswordForm from './ForgotPasswordForm'
 
 /**
- * Permet de choisir entre connexion et inscription.
- * @returns Le formulaire choisi et le bouton pour changer de mode.
+ * Permet de choisir entre connexion, inscription et récupération du mot de passe.
+ * @returns Le formulaire choisi et ses boutons de navigation.
  */
-
 export default function AuthScreen() {
-  const [mode, setMode] = useState<'sign-in' | 'sign-up'>('sign-in')
+  const [mode, setMode] = useState<'sign-in' | 'sign-up' | 'forgot-password'>(
+    'sign-in',
+  )
   const isSignIn = mode === 'sign-in'
+
+  let form
+
+  if (mode === 'sign-in') {
+    form = <SignInForm />
+  } else if (mode === 'sign-up') {
+    form = <SignUpForm />
+  } else {
+    form = <ForgotPasswordForm />
+  }
 
   return (
     <section>
-      {isSignIn ? <SignInForm /> : <SignUpForm />}
+      {form}
       <Button onClick={() => setMode(isSignIn ? 'sign-up' : 'sign-in')}>
-        {isSignIn ? 'Créer un compte' : 'Déjà inscrit ? Se connecter'}
+        {isSignIn ? 'Créer un compte' : 'Retour à la connexion'}
       </Button>
+      {isSignIn && (
+        <Button onClick={() => setMode('forgot-password')}>
+          Mot de passe oublié ?
+        </Button>
+      )}
     </section>
   )
 }

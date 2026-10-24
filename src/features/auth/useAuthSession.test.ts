@@ -180,4 +180,30 @@ describe('useAuthSession', () => {
 
     expect(subscription.unsubscribe).toHaveBeenCalledTimes(1)
   })
+
+  test('active le mode récupération après PASSWORD_RECOVERY', async () => {
+    const { result } = await renderLoadAuthSession()
+
+    expect(result.current.isPasswordRecovery).toBe(false)
+
+    await emitAuthEvent('PASSWORD_RECOVERY', fakeSession)
+
+    expect(result.current.isPasswordRecovery).toBe(true)
+    expect(result.current.session).toEqual(fakeSession)
+    expect(result.current.isLoading).toBe(false)
+    expect(result.current.errorMessage).toBe('')
+  })
+
+  test('désactive le mode récupération après une déconnexion', async () => {
+    const { result } = await renderLoadAuthSession()
+
+    await emitAuthEvent('PASSWORD_RECOVERY', fakeSession)
+    expect(result.current.isPasswordRecovery).toBe(true)
+
+    await emitAuthEvent('SIGNED_OUT', null)
+
+    expect(result.current.isPasswordRecovery).toBe(false)
+    expect(result.current.session).toBeNull()
+    expect(result.current.isLoading).toBe(false)
+  })
 })

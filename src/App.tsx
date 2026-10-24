@@ -3,6 +3,7 @@ import Dashboard from './features/dashboard/Dashboard'
 import Button from './components/ui/Button'
 import AuthScreen from './features/auth/AuthScreen'
 import SignOutButton from './features/auth/SignOutButton'
+import ResetPasswordForm from './features/auth/ResetPasswordForm'
 import { useAuthSession } from './features/auth/useAuthSession'
 
 /**
@@ -10,7 +11,8 @@ import { useAuthSession } from './features/auth/useAuthSession'
  * @returns L'en-tête, puis le chargement, une erreur ou l'écran approprié.
  */
 export default function App() {
-  const { session, isLoading, errorMessage } = useAuthSession()
+  const { session, isLoading, errorMessage, isPasswordRecovery } =
+    useAuthSession()
 
   let content
 
@@ -21,6 +23,19 @@ export default function App() {
       <div>
         <p role="alert">{errorMessage}</p>
         <Button onClick={() => window.location.reload()}>Réessayer</Button>
+      </div>
+    )
+  } else if (isPasswordRecovery) {
+    content = session ? (
+      <ResetPasswordForm />
+    ) : (
+      <div>
+        <p role="alert">
+          Aucune session de récupération valide. Demandez un nouveau lien.
+        </p>
+        <Button onClick={() => window.location.assign('/')}>
+          Retour à la connexion
+        </Button>
       </div>
     )
   } else if (session) {
