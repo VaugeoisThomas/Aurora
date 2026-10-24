@@ -5,9 +5,12 @@ avec React, TypeScript et Vite.
 
 ## État du projet
 
-Fondations en cours : interface initiale, composants partagés et configuration
-de qualité. L’authentification et la persistance des données ne sont pas encore
-implémentées.
+Authentification par email : inscription avec confirmation, connexion,
+déconnexion et restauration de session.
+
+Le formulaire de compte fonctionne localement ; les données financières
+ne sont pas encore enregistrées. La réinitialisation du mot de passe
+reste à implémenter.
 
 Les documents de conception sont disponibles dans `budgetwise_conception`.
 Ils utilisent encore le nom initial BudgetWise.
@@ -47,6 +50,7 @@ npm run test:watch
 - `src/features` : composants et logique regroupés par fonctionnalité (dashboard, accounts…).
 - `src/styles/main.scss` : point d’entrée unique des styles.
 - `src/styles` : organisation Sass 7-1, alimentée selon les besoins.
+- `src/hooks` : hooks réutilisables indépendants des fonctionnalités métier.
 - `budgetwise_conception` : spécifications et décisions de conception.
 
 ## Conventions
@@ -68,7 +72,9 @@ Avant fusion : revue, contrôles automatiques et vérification fonctionnelle
 adaptée au changement.
 
 GitHub Actions vérifie ESLint, Prettier, les tests unitaires et la compilation.
-Les tests monétaires couvrent les conversions, les saisies invalides et les limites de précision.
+
+Les tests couvrent la conversion monétaire, les actions asynchrones,
+le suivi de session et les principaux résultats des formulaires d’authentification.
 
 ### Configuration Supabase
 

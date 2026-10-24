@@ -1,5 +1,5 @@
-import { useId } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
+import FormField from './FormField'
 
 type TextFieldProps = Omit<
   ComponentPropsWithoutRef<'input'>,
@@ -11,9 +11,9 @@ type TextFieldProps = Omit<
 }
 
 /**
- * Affiche un champ de saisie avec un label et des messages associés.
- * @param props - Label, aide et erreur facultatives, identifiant et propriétés natives.
- * @returns Un champ accessible relié à ses descriptions.
+ * Affiche un input dans une enveloppe de champ accessible.
+ * @param props - Label, descriptions et propriétés HTML natives.
+ * @returns Le champ de saisie et ses messages associés.
  */
 export default function TextField({
   label,
@@ -22,27 +22,9 @@ export default function TextField({
   id,
   ...props
 }: Readonly<TextFieldProps>) {
-  const generatedId = useId()
-  const inputId = id ?? generatedId
-  const hintId = `${inputId}-hint`
-  const errorId = `${inputId}-error`
-  const describedBy =
-    [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
-
   return (
-    <div className="form-field">
-      <label htmlFor={inputId}>{label}</label>
-
-      {hint && <p id={hintId}>{hint}</p>}
-
-      <input
-        {...props}
-        id={inputId}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy}
-      />
-
-      {error && <p id={errorId}>{error}</p>}
-    </div>
+    <FormField id={id} label={label} hint={hint} error={error}>
+      {(controlProps) => <input {...props} {...controlProps} />}
+    </FormField>
   )
 }
