@@ -3,14 +3,17 @@ import type { Session } from '@supabase/supabase-js'
 import { supabase } from '../../lib/supabase'
 
 /**
- * Récupère la session Supabase et suit ses changements.
- * @returns La session, l'état de chargement et une éventuelle erreur.
+ * Récupère la session et suit les changements d'authentification.
+ * @returns La session, le chargement l'erreur et le mode récupération.
  */
 
 export function useAuthSession() {
   const [session, setSession] = useState<Session | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [isPasswordRecovery, setIsPasswordRecovery] = useState(
+    () => window.location.pathname === '/reset-password',
+  )
 
   useEffect(() => {
     let isActive = true
@@ -43,6 +46,11 @@ export function useAuthSession() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((e, nextSession) => {
       if (!isActive || e === 'INITIAL_SESSION') return
+      if (e === 'PASSWORD_RECOVERY') {
+        setIsPasswordRecovery(true)
+      } else if (e === 'SIGNED_OUT') {
+        setIsPasswordRecovery(false)
+      }
 
       hasAuthChanged = true
       setSession(nextSession)
@@ -58,5 +66,5 @@ export function useAuthSession() {
     }
   }, [])
 
-  return { session, isLoading, errorMessage }
+  return { session, isLoading, errorMessage, isPasswordRecovery }
 }
