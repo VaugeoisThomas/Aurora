@@ -1,6 +1,8 @@
 import type { ComponentPropsWithRef } from 'react'
 
-type ButtonProps = ComponentPropsWithRef<'button'>
+type ButtonProps = ComponentPropsWithRef<'button'> & {
+  variant?: 'primary' | 'secondary'
+}
 
 /**
  * Affiche un bouton partagé, de type button par défaut.
@@ -11,12 +13,15 @@ export default function Button({
   children,
   type = 'button',
   className,
+  variant = 'primary',
   ...props
 }: Readonly<ButtonProps>) {
   return (
     <button
       type={type}
-      className={['button', className].filter(Boolean).join(' ')}
+      className={['button', `button--${variant}`, className]
+        .filter(Boolean)
+        .join(' ')}
       {...props}
     >
       {children}

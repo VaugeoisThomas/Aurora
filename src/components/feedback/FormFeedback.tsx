@@ -14,11 +14,19 @@ export default function FormFeedback({
   successMessage,
 }: Readonly<FormFeedbackProps>) {
   if (errorMessage) {
-    return <p role="alert">{errorMessage}</p>
+    return (
+      <p className="form-feedback form-feedback--error" role="alert">
+        {errorMessage}
+      </p>
+    )
   }
 
   if (successMessage) {
-    return <output>{successMessage}</output>
+    return (
+      <output className="form-feedback form-feedback--success">
+        {successMessage}
+      </output>
+    )
   }
   return null
 }

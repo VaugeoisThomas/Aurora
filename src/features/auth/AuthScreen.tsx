@@ -25,16 +25,24 @@ export default function AuthScreen() {
   }
 
   return (
-    <section>
+    <section className="auth-screen">
       {form}
-      <Button onClick={() => setMode(isSignIn ? 'sign-up' : 'sign-in')}>
-        {isSignIn ? 'Créer un compte' : 'Retour à la connexion'}
-      </Button>
-      {isSignIn && (
-        <Button onClick={() => setMode('forgot-password')}>
-          Mot de passe oublié ?
+      <div className="auth-screen__actions">
+        <Button
+          onClick={() => setMode(isSignIn ? 'sign-up' : 'sign-in')}
+          variant="secondary"
+        >
+          {isSignIn ? 'Créer un compte' : 'Retour à la connexion'}
         </Button>
-      )}
+        {isSignIn && (
+          <Button
+            onClick={() => setMode('forgot-password')}
+            variant="secondary"
+          >
+            Mot de passe oublié ?
+          </Button>
+        )}
+      </div>
     </section>
   )
 }
