@@ -33,6 +33,7 @@ export default function AuthForm({
 
   return (
     <form
+      className="auth-form"
       aria-labelledby={titleId}
       aria-busy={isSubmitting}
       onSubmit={(event) => {

@@ -1,0 +1,19 @@
+.form-feedback {
+  display: block;
+  padding: var(--space-4);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-small);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.form-feedback--error {
+  background-color: var(--color-error-surface);
+  color: var(--color-error);
+}
+
+.form-feedback--success {
+  background-color: var(--color-success-surface);
+  color: var(--color-success);
+}

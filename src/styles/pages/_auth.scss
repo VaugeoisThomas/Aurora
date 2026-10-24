@@ -1,0 +1,12 @@
+.auth-screen {
+  display: grid;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 28rem;
+  margin-inline: auto;
+
+  .auth-screen__actions {
+    display: grid;
+    gap: var(--space-3);
+  }
+}
